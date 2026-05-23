@@ -3,8 +3,8 @@ provider "aws" {
 }
 
 resource "aws_instance" "devops_demo" {
-  ami           = "ami-07a00cf47dbbc844c"
-  instance_type = "t2.micro"
+  ami           = var.ami
+  instance_type = var.instance_type
 
   tags = {
     Name = "DevOps-Demo"
