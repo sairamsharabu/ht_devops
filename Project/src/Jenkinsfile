@@ -1,0 +1,79 @@
+pipeline {
+    agent any
+
+    environment {
+        IMAGE_NAME = "demo-java-app"
+        DOCKERHUB_CREDS = credentials('dockerhub-creds')
+    }
+
+    stages {
+
+        stage('Clone Code') {
+            steps {
+                git 'https://github.com/YOUR_GITHUB/demo-java-app.git'
+            }
+        }
+
+        stage('Build Maven') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+
+        stage('Trivy File Scan') {
+            steps {
+                sh 'trivy fs .'
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                sh 'docker build -t $IMAGE_NAME .'
+            }
+        }
+
+        stage('Trivy Image Scan') {
+            steps {
+                sh 'trivy image $IMAGE_NAME'
+            }
+        }
+
+        stage('Docker Tag') {
+            steps {
+                sh 'docker tag $IMAGE_NAME YOUR_DOCKERHUB/demo-java-app:v1'
+            }
+        }
+
+        stage('Docker Push') {
+            steps {
+                sh 'echo $DOCKERHUB_CREDS_PSW | docker login -u $DOCKERHUB_CREDS_USR --password-stdin'
+                sh 'docker push YOUR_DOCKERHUB/demo-java-app:v1'
+            }
+        }
+
+        stage('Terraform Init') {
+            steps {
+                dir('terraform') {
+                    sh 'terraform init'
+                }
+            }
+        }
+
+        stage('Terraform Apply') {
+            steps {
+                dir('terraform') {
+                    sh 'terraform apply -auto-approve'
+                }
+            }
+        }
+
+        stage('Deploy Container') {
+            steps {
+                sh '''
+                docker run -d -p 8080:8080 \
+                YOUR_DOCKERHUB/demo-java-app:v1
+                '''
+            }
+        }
+    }
+}
