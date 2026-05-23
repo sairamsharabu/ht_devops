@@ -4,13 +4,14 @@ pipeline {
     environment {
         IMAGE_NAME = "demo-java-app"
         DOCKERHUB_CREDS = credentials('dockerhub-creds')
+        YOUR_DOCKERHUB = 8438
     }
 
     stages {
 
         stage('Clone Code') {
             steps {
-                git 'https://github.com/YOUR_GITHUB/demo-java-app.git'
+                git 'git 'https://github.com/hariharanjenkin/HT-DevOps.git''
             }
         }
 
@@ -40,14 +41,14 @@ pipeline {
 
         stage('Docker Tag') {
             steps {
-                sh 'docker tag $IMAGE_NAME YOUR_DOCKERHUB/demo-java-app:v1'
+                sh 'docker tag $IMAGE_NAME $YOUR_DOCKERHUB/demo-java-app:v1'
             }
         }
 
         stage('Docker Push') {
             steps {
                 sh 'echo $DOCKERHUB_CREDS_PSW | docker login -u $DOCKERHUB_CREDS_USR --password-stdin'
-                sh 'docker push YOUR_DOCKERHUB/demo-java-app:v1'
+                sh 'docker push $YOUR_DOCKERHUB/demo-java-app:v1'
             }
         }
 
