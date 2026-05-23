@@ -1,8 +1,5 @@
 # HT-DevOps
 
-Got it — GitHub readability needs clean spacing, consistent headings, and no heavy tables or code blocks breaking flow.
-
-Here is a **proper GitHub-friendly README.md format** you can directly copy-paste:
 
 ---
 
@@ -185,10 +182,3 @@ target/demo-app-1.0.jar
 
 ---
 
-If you want next upgrade, I can also convert this into:
-- Interview Q&A format
-- Jenkins + Maven CI/CD explanation README
-- Real DevOps project README (production level)
-
-Just tell 👍
-```
