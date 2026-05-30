@@ -1,7 +1,6 @@
 pipeline {
 agent any
 
-```
 stages {
 
     stage('Check Java') {
@@ -19,6 +18,5 @@ stages {
     }
 
 }
-```
 
 }
