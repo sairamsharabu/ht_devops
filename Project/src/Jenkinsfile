@@ -3,8 +3,8 @@ pipeline {
 
     environment {
         IMAGE_NAME = "demo-java-app"
-        DOCKERHUB_CREDS = credentials('dockerhub-creds')
-        DOCKERHUB_USER = "8438"
+        DOCKERHUB_CREDS = credentials('Dokcerhub-cred')
+        //DOCKERHUB_USER = "8438"
     }
 
     stages {
