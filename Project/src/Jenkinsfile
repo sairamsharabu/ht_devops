@@ -1,15 +1,12 @@
 pipeline {
 agent any
 
+
 stages {
 
     stage('Check Java') {
         steps {
             sh '''
-            echo "JAVA_HOME=$JAVA_HOME"
-            which java
-            which javac
-
             java -version
             javac -version
             mvn -version
@@ -17,6 +14,13 @@ stages {
         }
     }
 
+    stage('Build Maven') {
+        steps {
+            dir('Project/src') {
+                sh 'mvn clean package'
+            }
+        }
+    }
 }
 
 }
