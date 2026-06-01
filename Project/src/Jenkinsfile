@@ -4,7 +4,7 @@ pipeline {
     environment {
         IMAGE_NAME = "demo-java-app"
         DOCKERHUB_CREDS = credentials('Dokcerhub-cred')
-        DOCKERHUB_USER = "sairam7892@gmail.com"
+        DOCKERHUB_USER = "sairam7892"
     }
 
     stages {
